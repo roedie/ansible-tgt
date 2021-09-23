@@ -1,14 +1,10 @@
 ---
 
-- name: DebOps pre_tasks hook
-  include: '{{ lookup("task_src", "tgt/pre_main.yml") }}'
-
 - name: Install required packages
   apt:
-    name: '{{ item }}'
+    name: '{{ tgt_packages }}'
     state: 'present'
     install_recommends: False
-  with_items: tgt_packages
 
 - name: Configure tgt global options
   template:
@@ -55,7 +51,3 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-
-- name: DebOps post_tasks hook
-  include: '{{ lookup("task_src", "tgt/post_main.yml") }}'
-
